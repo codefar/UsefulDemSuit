@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_root"
+    android:layout_width="match_parent"
+    android:paddingLeft="13dp"
+    android:layout_height="wrap_content">
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <!--What you want to show-->
+        <TextView
+            android:id="@+id/delete_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="16dp"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:background="#fa0000"
+            android:text="删除"/>
+    </LinearLayout>
+    <!-- Bottom View End-->
+
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/name"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            style="@style/TextAppearance.AppCompat.Medium"
+            tools:text="内容"
+            android:textColor="#666666" />
+    </LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>

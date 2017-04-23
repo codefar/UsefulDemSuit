@@ -1,0 +1,1 @@
+include ':app', ':processor', ':demo_inject', ':lib', ":annotation"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.meituan.davy.myapplication">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".AppApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".http.MainService"
+            android:process=":server" />
+
+        <activity
+            android:name=".flexboxlayout.FlexBoxActivity"
+            android:label="FlexBo">
+            <intent-filter>
+                <action android:name="com.meituan.davy.myapplicatio.DEMO" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".db.GreenDaoActivity"
+            android:label="GreenDao">
+            <intent-filter>
+                <action android:name="com.meituan.davy.myapplicatio.DEMO" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".dagger.Dagger2Activity"
+            android:label="Dagger2">
+            <intent-filter>
+                <action android:name="com.meituan.davy.myapplicatio.DEMO" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".list_swipe_delete.SwipeDeleteActivity"
+            android:label="SwipeDelete">
+            <intent-filter>
+                <action android:name="com.meituan.davy.myapplicatio.DEMO" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
