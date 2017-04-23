@@ -11,10 +11,8 @@ import java.lang.annotation.Target;
  * Created by davy on 2017/4/23.
  */
 
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-@Inherited
 public @interface Demo {
     String name();
 }

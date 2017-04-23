@@ -14,16 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.davy.demo.annotation.Demo;
-import com.meituan.davy.demo_inject.DemoInjector;
-import com.meituan.davy.myapplication.ContainerActivity;
 import com.meituan.davy.myapplication.R;
 import com.meituan.davy.myapplication.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 

@@ -1,17 +1,18 @@
 package com.davy.demo.processor.model;
 
+import javax.lang.model.element.TypeElement;
+
 /**
  * Created by davy on 2017/4/23.
  */
 
 public class DemoAnnotatedClass {
+    private TypeElement typeElement;
     private String showName;
     private String className;
 
-    public DemoAnnotatedClass() {
-    }
-
-    public DemoAnnotatedClass(String showName, String className) {
+    public DemoAnnotatedClass(TypeElement typeElement, String showName, String className) {
+        this.typeElement = typeElement;
         this.showName = showName;
         this.className = className;
     }

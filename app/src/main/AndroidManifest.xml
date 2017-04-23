@@ -44,13 +44,13 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".dagger.Dagger2Activity"
-            android:label="Dagger2">
-            <intent-filter>
-                <action android:name="com.meituan.davy.myapplicatio.DEMO" />
-            </intent-filter>
-        </activity>
+        <!--<activity-->
+            <!--android:name=".dagger.Dagger2Activity"-->
+            <!--android:label="Dagger2">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.meituan.davy.myapplicatio.DEMO" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <activity android:name=".list_swipe_delete.SwipeDeleteActivity"
             android:label="SwipeDelete">

@@ -1,28 +1,17 @@
 package com.meituan.davy.myapplication.main;
 
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.meituan.davy.myapplication.R;
 import com.meituan.davy.myapplication.base.AbsRecycleViewAdapter;
-import com.meituan.davy.myapplication.dagger.Dagger2Fragment;
-import com.meituan.davy.myapplication.db.DbFragment;
-import com.meituan.davy.myapplication.list_swipe_delete.SwipeDeleteFragment;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.R.id.list;
 
 public class MainRecycleViewAdapter extends AbsRecycleViewAdapter<DemoEntity, MainRecycleViewAdapter.MainViewHolder> {
 

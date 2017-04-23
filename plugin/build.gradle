@@ -1,0 +1,23 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+version = '1.0.0'//插件version
+group = 'com.davy.demoplugin'//插件groupId
+archivesBaseName = 'demoplugin'//插件artifactId
+
+dependencies {
+    compile gradleApi()//gradle sdk
+    compile localGroovy()//Groovy sdk
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+//发布配置
+uploadArchives {
+    repositories.mavenDeployer {
+        //发布到本地
+        repository(url: 'file:repo/')
+    }
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

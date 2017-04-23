@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'maven'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -9,3 +10,20 @@ dependencies {
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+def GROUP_ID = 'com.davy.demo'
+def VERSION_NAME = '1.0.0'
+def ARTIFACT_ID = 'injector'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://repo")
+            //repository(url: 'maven.repo.local')
+
+            pom.groupId = GROUP_ID
+            pom.version = VERSION_NAME
+            pom.artifactId = ARTIFACT_ID
+        }
+    }
+}

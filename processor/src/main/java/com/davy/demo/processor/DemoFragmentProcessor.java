@@ -1,7 +1,6 @@
 package com.davy.demo.processor;
 
 import com.davy.demo.annotation.Demo;
-import com.davy.demo.annotation.DemoClassName;
 import com.davy.demo.processor.model.DemoAnnotatedClass;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
@@ -38,44 +37,32 @@ import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
 @AutoService(Processor.class)
-public class DemoFragmentProcessor extends AbstractProcessor {
-
-    private Elements mElementUtils;
-    private Logger mLogger;
-    private Filer mFiler;
-    private Types mTypeUtils;
+public class DemoFragmentProcessor extends AbstractBaseProcessor {
 
     private Map<String, DemoAnnotatedClass> annotatedClasses = new HashMap<>();
-
-    @Override
-    public synchronized void init(ProcessingEnvironment env) {
-        mElementUtils = env.getElementUtils();
-        mFiler = env.getFiler();
-        mTypeUtils = env.getTypeUtils();
-        mLogger = new Logger(env.getMessager());
-    }
+    private static int count = 0;
 
     @Override
     public boolean process(Set<? extends TypeElement> annoations, RoundEnvironment roundEnv) {
-        mLogger.info("DemoFragmentProcessor process " + Arrays.toString(annoations.toArray()));
+        info("DemoFragmentProcessor process start " + annoations.size()+ " count = " + count++ + " last round : " + roundEnv.processingOver());
 
         processDemo(roundEnv);
 
         if (roundEnv.processingOver()) {
             try {
+                info(Arrays.toString(annotatedClasses.values().toArray()));
                 generate(annotatedClasses.values());
             } catch (IOException e) {
-                mLogger.error("Couldn't generate class " + e.toString());
+                error("DemoFragmentProcessor Couldn't generate class " + e.toString());
             }
         }
-
-        return true;
+        return false;
     }
 
     private void processDemo(RoundEnvironment roundEnv) {
         for (Element element : roundEnv.getElementsAnnotatedWith(Demo.class)) {
             TypeElement typeElement = (TypeElement) element;
-            mLogger.info("processDemo className " + getPackageName(typeElement));
+            info("DemoFragmentProcessor processDemo className " + getPackageName(typeElement));
             if (!isValidClass(typeElement)) {
                 return;
             }
@@ -83,31 +70,31 @@ public class DemoFragmentProcessor extends AbstractProcessor {
             try {
                 buildAnnotatedClass(typeElement);
             } catch (IOException e) {
-                String message = String.format("Couldn't process class %s: %s", typeElement,
+                String message = String.format("DemoFragmentProcessor Couldn't process class %s: %s", typeElement,
                         e.getMessage());
-                mLogger.error(message, element);
+                error(message, element);
                 e.printStackTrace();
             }
         }
-        mLogger.info(Arrays.toString(annotatedClasses.values().toArray()));
     }
 
     private void buildAnnotatedClass(TypeElement typeElement) throws IOException {
-        DemoAnnotatedClass demoAnnotatedClass = new DemoAnnotatedClass();
-        demoAnnotatedClass.setClassName(typeElement.getQualifiedName().toString());
         Demo demo = typeElement.getAnnotation(Demo.class);
         String name = demo.name();
         if (name == null || name.length() <= 0) {
             name = typeElement.getClass().getSimpleName();
         }
-        demoAnnotatedClass.setShowName(name);
+
+        DemoAnnotatedClass demoAnnotatedClass = new DemoAnnotatedClass(typeElement, name,
+                typeElement.getQualifiedName().toString());
+        demoAnnotatedClass.setClassName(typeElement.getQualifiedName().toString());
         annotatedClasses.put(demoAnnotatedClass.getShowName(), demoAnnotatedClass);
     }
 
     private void generate(Collection<DemoAnnotatedClass> annotatedClasses) throws IOException {
 
-        final String pkgName = DemoClassName.DEMO_PKG_NAME;
-        final String className = DemoClassName.DEMO_CLASS_NAME;
+        final String pkgName = "com.davy.demo";
+        final String className = "Demos";
 
         ArrayList<DemoAnnotatedClass> classes = new ArrayList<>(annotatedClasses);
 
@@ -120,6 +107,7 @@ public class DemoFragmentProcessor extends AbstractProcessor {
             builder.addStatement("demos.put(\"$N\" , \"$N\")", demoAnnotatedClass.getShowName(), demoAnnotatedClass.getClassName());
 
         }
+
         CodeBlock initCodeBlock = builder.build();
 
         FieldSpec demosField = FieldSpec.builder(mapTypeName, "demos")
@@ -142,11 +130,6 @@ public class DemoFragmentProcessor extends AbstractProcessor {
         Set<String> types = new LinkedHashSet<>();
         types.add(Demo.class.getCanonicalName());
         return Collections.unmodifiableSet(types);
-    }
-
-    @Override
-    public SourceVersion getSupportedSourceVersion() {
-        return SourceVersion.latestSupported();
     }
 
     private boolean isValidClass(TypeElement typeElement) {

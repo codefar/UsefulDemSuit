@@ -1,9 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
+//apply plugin: 'print-message'
+//
+//printMessage{
+//    message="test"
+//}
 
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
+
     defaultConfig {
         applicationId "com.meituan.davy.myapplication"
         minSdkVersion 15
@@ -11,21 +17,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
-            }
-        }
     }
+
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
         }
     }
 
@@ -39,10 +36,8 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/rxjava.properties'
     }
 }
-
 
 greendao {
     schemaVersion 1
@@ -53,16 +48,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
-
-    //    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
-
-    //    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
-    annotationProcessor project(':processor')
-    compile project(path: ':annotation')
-    compile project(path: ':demo_inject')
+    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -76,12 +62,14 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
-    testCompile 'junit:junit:4.12'
+    //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    //    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    //    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile project(':annotation')
+    annotationProcessor project(':processor')
+    //annotationProcessor 'com.davy.demo:injector:1.0.0'
 }

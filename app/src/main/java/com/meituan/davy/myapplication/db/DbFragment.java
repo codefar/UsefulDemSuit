@@ -7,16 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.davy.demo.annotation.Demo;
-import com.meituan.davy.myapplication.base.BaseFragment;
 import com.meituan.davy.myapplication.R;
+import com.meituan.davy.myapplication.base.BaseFragment;
 
 import butterknife.BindView;
 
 /**
  * Created by davy on 2017/4/22.
  */
-@Demo(name = "GreenDao")
 public class DbFragment extends BaseFragment {
 
     @BindView(R.id.recycle_view)
